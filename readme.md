@@ -15,7 +15,7 @@ Install here: [https://chrome.google.com/webstore/detail/fuskator-preview-enhanc
 
 ## Notes
 
-This extension is ONLY enabled on *://*.fuskator.com/* and it does not store/send any information from your browser. Feel free to take a peek at the source code if you'd like to double check.
+This extension is ONLY enabled on \*://\*.fuskator.com/* and it does not store/send any information from your browser. Feel free to take a peek at the source code if you'd like to double check.
 
 If you find a bug, feel free to open an issue here on Github.
 
