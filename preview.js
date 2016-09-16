@@ -1,21 +1,12 @@
+function time() {
+	return (new Date()).getTime();
+}
+
+// timer used for debouncing image changes
+var LAST_CHANGE = time();
+
 function should_bind(e) {
 	return e.target.nodeName == "DIV" && !!e.target.firstChild;
-}
-
-// handle the mousemove event, 
-function handle_move(e, preview_images) {
-	var show_index = parseInt((e.offsetX / e.target.offsetWidth) * preview_images.length, 10);
-	var preview_image = preview_images[show_index];
-
-	// swap the preview image if necessary
-	if (e.target.src != preview_image) {
-		e.target.src = preview_image;
-	}
-}
-
-// unbind mousemove listener, and clean up
-function handle_exit(e) {
-	e.target.removeEventListener('mousemove', handle_move, false);
 }
 
 function parse_preview_images(e) {
@@ -29,6 +20,7 @@ function parse_preview_images(e) {
 		gallery_prefix = gallery_prefix.substr(0,gallery_prefix.length-5) + "image";
 	}
 	
+	// predict all thumbnail URLs
 	var preview_images = [];
 	var urlbase = "http://fuskator.com/small/" + gallery_prefix + "-";
 	for (var i = 1; i <= num_pics; i++) {
@@ -37,6 +29,24 @@ function parse_preview_images(e) {
 	return preview_images;
 }
 
+// handle the mousemove event, swap the preview images based on cursor position
+function handle_move(e, preview_images) {
+	var show_index = parseInt((e.offsetX / e.target.offsetWidth) * preview_images.length, 10);
+	show_index = Math.min(Math.max(show_index,0), preview_images.length-1)
+	var preview_image = preview_images[show_index];
+
+	var t = time();
+	// swap the preview image if necessary
+	if (e.target.src != preview_image && (time() - LAST_CHANGE) > 100) {
+		LAST_CHANGE = time();
+		e.target.src = preview_image;
+	}
+}
+
+// unbind mousemove listener
+function handle_exit(e) {
+	e.target.removeEventListener('mousemove', handle_move, false);
+}
 
 // handle the mouse enter event
 //   - decide if should ignore
