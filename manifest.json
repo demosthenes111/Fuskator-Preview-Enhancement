@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Fuskator Preview Enhancement",
   "short_name": "F.P.E.",
-  "version": "0.1.0.3",
+  "version": "0.1.0.4",
   "description": "A nano-sized chrome extension that cycles through preview images when you hover on a fuskator gallery thumbnail.",
 
   "author": "demosthenes",
